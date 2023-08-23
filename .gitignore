@@ -1,6 +1,8 @@
 # custom excludes
 notebooks/
 data/backup/
+audio/backup/
+text/backup/
 logs/backup/
 
 # Byte-compiled / optimized / DLL files
