@@ -33,37 +33,49 @@ from helpinghands.utility.data import (
 def main():
     try:
         # ---directories---
+
         base_dir = os.path.dirname(__file__)
         settings_dir = os.path.join(base_dir, "settings")
         data_dir = os.path.join(base_dir, "data")
-        # ---directories---
+        audio_dir = os.path.join(data_dir, "audio")
+        text_dir = os.path.join(data_dir, "text")
+        backup_dir = os.path.join(data_dir, "backup")
 
+        # ---directories---
+        #
         # ---settings---
+
         settings = load_settings(
             settings_file=os.path.join(settings_dir, "settings.json"),
-            secrets_keys_list="OPENAI_API_KEY",
+            secrets_keys_list=["OPENAI_API_KEY"],
         )
         api_key = settings["OPENAI_API_KEY"]
-        prompt = settings["PROMP"]
+        prompt = settings["PROMPT"]
         recorder = AudioRecorder(filename="test_recording", duration=5)
-        # ---settings---
 
+        # ---settings---
+        #
         # ---functions---
+
+        # recording (audio)
         logger.info("Recording...")
         recorded_filename = recorder.record()
         logger.info(f"Saved recording to: {recorded_filename}")
         output_file = recorded_filename
         logger.debug(f"output_file = {output_file}")
 
+        # transcribing (whisper)
         logger.info(f"Transcribing {output_file}")
         transcript = call_whisper(api_key, output_file)
         logger.debug(f"transcript = {transcript}")
 
+        # analyzing (gpt)
         logger.info("Analyzing...")
         raw_summary = call_gpt(api_key, prompt=prompt, input_text=transcript)
         logger.debug(f"raw_summary = {raw_summary}")
         summary = raw_summary.split("\n")[0]
 
+        # printing (text)
         fmt_summary = insert_newlines(summary)
         logger.debug(f"fmt_summary = {fmt_summary}")
 
@@ -73,6 +85,7 @@ def main():
         # summary = open_txt_file(txt_file_path)
 
         print(fmt_summary)
+
         # ---functions---
 
     except Exception as e:
