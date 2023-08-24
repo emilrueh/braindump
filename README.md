@@ -1,11 +1,11 @@
 # Braindump
 
 ## Overview
-Braindump is an innovative project designed to transcribe speech into text files. Users can speak directly into their laptops, and the spoken content is transcribed and analyzed using OpenAI artificial intelligence models, specifically WISPA and GPT models, along with the E3.5 Turbo API. The transcribed content is then saved to a text file that can be easily viewed by the user.
+Braindump is an innovative project designed to transcribe speech into text files. Users can speak directly into their laptops, and the spoken content is transcribed and analyzed using OpenAI artificial intelligence models. The transcribed and analyzed content is then saved to a text file that can be easily viewed by the user.
 
 ### Features
-- **Speech Transcription**: Transcribes user's speech into text.
-- **Content Analysis**: Utilizes OpenAI's WISPA and GPT models for analysis.
+- **Speech Transcription**: Transcribes user's speech into text using OpenAI's Whisper model.
+- **Content Analysis**: Utilizes OpenAI's GPT-3.5 Turbo model for analysis and guidance.
 - **Text File Generation**: Outputs the transcribed content into a text file.
 - **Easy Viewing**: Opens the text file in the default text editor for easy viewing.
 
