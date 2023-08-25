@@ -21,7 +21,7 @@ logger = config_logger(
 from helpinghands.utility import load_settings, log_exception
 
 from helpinghands.audio import AudioRecorder
-from helpinghands.openai import call_whisper, call_gpt
+from helpinghands.ai import call_whisper, call_gpt
 
 from helpinghands.utility.data import (
     insert_newlines,
@@ -37,20 +37,24 @@ import argparse
 def main():
     """
     TO-DO:
-        1. check whisper's transcribing
-            - where is it saved?
-            - it should be saved as .txt
-            - is it accurate?
+        X check whisper's transcribing
+        X check GPT's analysis
+            X where is it saved?
 
-        2. check GPT's analysis
-            - where is it saved?
-            - it should be saved as .txt
-            - is it accurate?
+        X write .txt savers for the full summary
+        X write file opener in default .txt software
 
-        3. write .txt savers for the full summary
-        4. write file opener in default .txt software
-        5. distribute everything into single src/ files
 
+        - integrate constant voice check for "Hey ChatGPT"
+        - listen for commands that are sent as prompt to the next call
+        - possibility of voice output via API
+        - for each response after calling the name it would extract the paramters via prompt
+        - can be expanded into various tasks around the PC
+        - the personalities of iPC can be integrated
+
+
+
+        5. distribute everything into seperate src/ files
         6. re-evaluate GPT's prompt
         7. package into .exe
         8. send to Deniz for testing
@@ -80,11 +84,14 @@ def main():
         text_dir = os.path.join(data_dir, "text")
         backup_dir = os.path.join(data_dir, "backup")
 
+        # load
         settings = load_settings(
             settings_file=os.path.join(settings_dir, "settings.json"),
             secrets_keys_list=["OPENAI_API_KEY"],
         )
 
+        # vars
+        name = str(settings["NAME"]).title()
         api_key = settings["OPENAI_API_KEY"]
         prompt = settings["PROMPT"]
 
@@ -107,10 +114,7 @@ def main():
         )
         # ---settings---
 
-        if args.test:
-            transcript = load_text_from_file(test_transcript_file_name)
-            logger.info(f"Loading transcript from: {test_transcript_file_name}")
-        else:
+        if not args.test:
             # ---functions---
             # recording (audio)
             logger.info("Recording...")
@@ -127,6 +131,9 @@ def main():
                 output_directory=text_dir,
                 mode="write",
             )
+        else:
+            transcript = load_text_from_file(test_transcript_file_name)
+            logger.info(f"Loading transcript from: {test_transcript_file_name}")
 
         if transcript:
             # analyzing (gpt)

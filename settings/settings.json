@@ -1,4 +1,5 @@
 {
+    "NAME": "timmy",
     "PROMPT": "Your task is to summarize and then analyze and interpret the following text. If you feel that the text is not chorent or not really understandable do you best on making it as understanable as possible. Your analysis and interpretion shouldn't be personal but rather give insights on where to find the knowledge to complete the gaps. Be nice and helpful and motivating. Make sure to be very concise. Respond with a short introduction, then bullet points, and end with a short conclusion and the next steps regarding the topic discussed. Here is the text:",
     "AUDIO_FILE_NAME": "recording",
     "TRANSCRIPT_FILE_NAME": "transcript",
