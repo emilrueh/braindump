@@ -102,12 +102,11 @@ def main():
         )
         # SETTINGS
 
-        #
-        # ---
-        # --- MAIN FUNCTION LOOP
-        # --------------------------
+        # -----------------
+        # |   S T A R T   |
+        # -----------------
 
-        # RECORDING AUDIO
+        # 1. RECORDING AUDIO
         if args.norec:
             audio_file = test_audio_file
         else:
@@ -115,7 +114,7 @@ def main():
             audio_file = listening(audio_recorder=audio_recorder)
             print("Audio file saved to: ", audio_file)
 
-        # TRANSCRIBING AUDIO
+        # 2. TRANSCRIBING AUDIO
         if args.notransc:
             transcript = load_text_from_file(test_transcript)
         else:
@@ -125,7 +124,7 @@ def main():
             )
             print(f"\nTranscript:\n-----------\n{transcript}\n\nSaved to: {transcript_file}")
 
-        # ANALYZING TRANSCRIPT
+        # 3. ANALYZING TRANSCRIPT
         if args.noanaly:
             analysis = load_text_from_file(test_analysis)
         else:
@@ -135,16 +134,15 @@ def main():
             )
             print(f"\Analysis:\n-----------\n{analysis}\n\nSaved to: {analysis_file}")
 
-        # --------------------------
-        # --- MAIN FUNCTION LOOP
-        # ---
-        #
-
-        # TEXT TO SPEECH
+        # 4. TEXT TO SPEECH
         speaking(analysis, output_file_dir=voice_file)
 
-        # OPENING ANALYSIS IN TEXT EDITOR
+        # 5. OPENING ANALYSIS IN TEXT EDITOR
         open_txt_file(analysis_file)
+
+        # -------------
+        # |   E N D   |
+        # -------------
 
     except Exception as e:
         exception_name = log_exception(e, log_level="critical", verbose=True)
