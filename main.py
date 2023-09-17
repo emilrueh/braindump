@@ -47,9 +47,15 @@ def main():
         parser = argparse.ArgumentParser(
             description="The flag -test allows for loading of previously recorded and transcribed files."
         )
-        parser.add_argument("-norec", action="store_true", help="This flag will disable the recording.")
-        parser.add_argument("-notransc", action="store_true", help="This flag will disable the transcription.")
-        parser.add_argument("-noanaly", action="store_true", help="This flag will disable the analysis.")
+        parser.add_argument(
+            "-norec", action="store_true", help="This flag will disable the recording."
+        )
+        parser.add_argument(
+            "-notransc", action="store_true", help="This flag will disable the transcription."
+        )
+        parser.add_argument(
+            "-noanaly", action="store_true", help="This flag will disable the analysis."
+        )
         args = parser.parse_args()
         # ---flags---
 
@@ -120,7 +126,9 @@ def main():
         else:
             print("\nTranscribing...")
             transcript = transcribing(
-                audio_file=audio_file, whisper_api_key=openai_api_key, output_file_path=transcript_file
+                audio_file=audio_file,
+                whisper_api_key=openai_api_key,
+                output_file_path=transcript_file,
             )
             print(f"\nTranscript:\n-----------\n{transcript}\n\nSaved to: {transcript_file}")
 
@@ -130,7 +138,10 @@ def main():
         else:
             print("\nAnalyzing...")
             analysis = analyzing(
-                input_text=transcript, what_to_do=prompt, gpt_api_key=openai_api_key, output_file_path=analysis_file
+                input_text=transcript,
+                what_to_do=prompt,
+                gpt_api_key=openai_api_key,
+                output_file_path=analysis_file,
             )
             print(f"\Analysis:\n-----------\n{analysis}\n\nSaved to: {analysis_file}")
 
@@ -140,9 +151,9 @@ def main():
         # 5. OPENING ANALYSIS IN TEXT EDITOR
         open_txt_file(analysis_file)
 
-        # -------------
-        # |   E N D   |
-        # -------------
+        # -----------------
+        # |     E N D     |
+        # -----------------
 
     except Exception as e:
         exception_name = log_exception(e, log_level="critical", verbose=True)
