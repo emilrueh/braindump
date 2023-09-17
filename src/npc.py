@@ -14,6 +14,9 @@ from gtts import gTTS
 import os
 
 
+# core functionality:
+
+
 def listening(audio_recorder):
     audio_file = audio_recorder.record()
     return audio_file
@@ -40,6 +43,9 @@ def speaking(text, output_file_path, lang="en"):
     tts.save(output_file_path)
     os.system(f"start {output_file_path}")
     return output_file_path
+
+
+# extra functionality:
 
 
 def deciding():
