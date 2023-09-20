@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from helpinghands.utility.data import write_to_txt_file, split_path
 from helpinghands.ai import call_gpt, call_whisper
 
-from helpinghands.utility.web import get_website
+from helpinghands.utility.web import open_website
 
 from gtts import gTTS
 import os
@@ -55,7 +55,7 @@ def deciding():
 def responding(understood, trigger, name):
     if "http" in understood or "www" in understood or ".com" in understood:
         url = understood
-        get_website(url)
+        open_website(url)
 
         parsed_url = urlparse(url)
         website_name = ".".join(parsed_url.netloc.split(".")[1:])
