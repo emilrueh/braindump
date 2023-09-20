@@ -1,3 +1,7 @@
+import warnings
+
+warnings.filterwarnings("ignore", "'ai.upscale' is disabled")
+
 from helpinghands.utility.logger import config_logger
 import os
 
@@ -7,7 +11,7 @@ logger = config_logger(
     name="main_logger",
     lvl_console="info" if not in_docker else "info",
     lvl_file="debug" if not in_docker else None,
-    lvl_root="debug",
+    lvl_root="warning",
     fmt_console="\n%(asctime)s - %(name)s - %(levelname)s - %(module)s @line %(lineno)3d\n%(message)s"
     if not in_docker
     else "\n%(name)s - %(levelname)s - %(module)s @line %(lineno)3d\n%(message)s",
@@ -15,7 +19,7 @@ logger = config_logger(
     fmt_date="%d.%m.%Y %H:%M:%S",
     file_name="runtime",
     file_timestamp="%d%m%Y-%H%M%S",
-    prints=True,
+    prints=False,
     encoding="utf-8",
 )
 from helpinghands.utility import load_settings, log_exception
@@ -78,7 +82,9 @@ def main():
         name = str(settings["NAME"]).title()
 
         openai_api_key = settings["OPENAI_API_KEY"]
-        prompt = settings["PROMPT_ANALYSIS"].format(name if name else "")
+        # prompt = settings["PROMPT_ANALYSIS"].format(name.title() if name else "you")
+        prompt = load_text_from_file(os.path.join(settings_dir, "prompt.txt"))
+        prompt = prompt.format(name.title() if name else "you") if "{}" in prompt else prompt
 
         # file names
         audio_file_name = f"{settings['AUDIO_FILE_NAME']}_{timestamp}"
