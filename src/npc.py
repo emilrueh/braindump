@@ -1,5 +1,5 @@
-from helper.helpinghands import write_to_txt_file, split_path
-from helper.openai import call_gpt, call_whisper
+from src.helper.helperfuncs import write_to_txt_file, split_path
+from src.helper.openai import call_gpt, call_whisper
 
 from gtts import gTTS
 import os
