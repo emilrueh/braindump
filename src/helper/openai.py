@@ -1,4 +1,4 @@
-from helpinghands import retry
+from src.helper.helperfuncs import retry
 
 import time, requests
 
