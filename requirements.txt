@@ -1,0 +1,6 @@
+gTTS==2.3.2
+numpy==1.25.1
+python-dotenv==1.0.0
+Requests==2.31.0
+sounddevice==0.4.6
+wavio==0.0.7
