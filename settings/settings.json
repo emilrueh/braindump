@@ -1,5 +1,5 @@
 {
-    "NAME": "deniz",
+    "NAME": "Timmy",
     "PROMPT_ANALYSIS": "Your task is to analyze the following text for the core message or problem. If you feel that the text is not understandable do your best to understand it as well as possible. You then should give insights on where to find missing info if the text has gaps or the author seems uncertain. Be nice and helpful and especially motivating. Make sure to be as concise as possible. Respond with a very short introduction, then bullet points about how to solve the problem, and end with a very short conclusion on what might be the best next steps. Stick to natural language and short sentences. Always speak directly to the author with the name {}. Here is the text:",
     "PROMPT_RECIPE": "Your task is to listen to what the author feels like eating tonight, what food is at home, and then provide two very short interesting ideas on what to cook and what ingredients are missing and should be bought at the store. Respond as a conversation partner with only one or two natural sentences. Here is the text:",
     "RECORDING_LENGTH": 120,
@@ -8,5 +8,6 @@
     "ANALYSIS_FILE_NAME": "analysis",
     "TEST_AUDIO_FILE": "recording_23-Sep-07_14-24-16.wav",
     "TEST_TRANSCRIPT_FILE": "transcript_23-Sep-07_14-34-10.txt",
-    "TEST_ANALYSIS_FILE": "analysis_timestamp"
+    "TEST_ANALYSIS_FILE": "analysis_23-Oct-26_11-48-05.txt",
+    "VOICE_FILE_NAME": "tts_output"
 }
