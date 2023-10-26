@@ -14,9 +14,10 @@ Braindump is an innovative project designed to transcribe speech into text files
 
 ## Getting Started
 1. **Clone the repository**: Use your preferred method to clone the project.
-2. **Install necessary dependencies**: Execute `pip install -r requirements.txt`
-3. **Customize settings**: Specify your name in `settings.json` and customize `prompt.txt` (optionally)
-4. **Run main.py**: Execute `python main.py` to initiate the transcription and analysis.
+2. **Install necessary dependencies**: Execute `pip install -r requirements.txt`.
+3. **Modify `.env.template`**: Add your OpenAI API key for GPT and Whisper.
+4. **Customize settings**: Specify your name in `settings.json` and customize `prompt.txt`. (optional)
+5. **Run main.py**: Execute `python main.py` to initiate the transcription and analysis.
 
 ## Author
 [Emil Rühmland](https://github.com/emilrueh)
