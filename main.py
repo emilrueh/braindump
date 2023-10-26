@@ -1,12 +1,12 @@
-from src.helper.helpinghands import load_settings
-from src.helper.helpinghands import AudioRecorder
-from src.helper.helpinghands import (
+from src.helper.helperfuncs import load_settings
+from src.helper.helperfuncs import AudioRecorder
+from src.helper.helperfuncs import (
     load_text_from_file,
     open_txt_file,
 )
 
 from datetime import datetime
-import os
+import os, traceback
 
 from src.npc import listening, transcribing, analyzing, speaking
 
@@ -93,7 +93,7 @@ def main():
         print(f"\Analysis:\n-----------\n{analysis}\n\nSaved to: {analysis_file}")
 
         # 4. TEXT TO SPEECH
-        speaking(analysis, output_file_dir=voice_file)
+        speaking(analysis, output_file_path=voice_file, lang="en")
 
         # 5. OPENING ANALYSIS IN TEXT EDITOR
         open_txt_file(analysis_file)
@@ -103,7 +103,8 @@ def main():
         # -----------------
 
     except Exception as e:
-        print(f"{type(e).__name__}\n{e}\nShutting down...")
+        traceback.print_exc()
+        print(f"Shutting down...")
 
 
 if __name__ == "__main__":
