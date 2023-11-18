@@ -1,62 +1,18 @@
-from helpinghands.utility.logger import config_logger
-import os
-
-in_docker = os.getenv("DOCKER_ENV") is not None
-
-logger = config_logger(
-    name="main_logger",
-    lvl_console="info" if not in_docker else "info",
-    lvl_file="debug" if not in_docker else None,
-    lvl_root="debug",
-    fmt_console="\n%(asctime)s - %(name)s - %(levelname)s - %(module)s @line %(lineno)3d\n%(message)s"
-    if not in_docker
-    else "\n%(name)s - %(levelname)s - %(module)s @line %(lineno)3d\n%(message)s",
-    fmt_file="%(asctime)s - %(name)s - %(levelname)s - %(module)s @line %(lineno)3d ---> %(message)s",
-    fmt_date="%d.%m.%Y %H:%M:%S",
-    file_name="runtime",
-    file_timestamp="%d%m%Y-%H%M%S",
-    prints=True,
-    encoding="utf-8",
-)
-from helpinghands.utility import load_settings, log_exception
-
-from helpinghands.audio.recorder import AudioRecorder
-
-from helpinghands.utility.data import (
+from src.helper.helperfuncs import load_settings
+from src.helper.helperfuncs import AudioRecorder
+from src.helper.helperfuncs import (
     load_text_from_file,
     open_txt_file,
 )
 
 from datetime import datetime
-import argparse
-
+import os, traceback
 
 from src.npc import listening, transcribing, analyzing, speaking
 
 
 def main():
-    """
-    TO-DO:
-        -
-    """
-
     try:
-        # ---flags---
-        parser = argparse.ArgumentParser(
-            description="The flag -test allows for loading of previously recorded and transcribed files."
-        )
-        parser.add_argument(
-            "-norec", action="store_true", help="This flag will disable the recording."
-        )
-        parser.add_argument(
-            "-notransc", action="store_true", help="This flag will disable the transcription."
-        )
-        parser.add_argument(
-            "-noanaly", action="store_true", help="This flag will disable the analysis."
-        )
-        args = parser.parse_args()
-        # ---flags---
-
         # SETTINGS
         timestamp = datetime.now().strftime("%y-%b-%d_%H-%M-%S")
 
@@ -111,40 +67,33 @@ def main():
         # -----------------
 
         # 1. RECORDING AUDIO
-        if args.norec:
-            audio_file = test_audio_file
-        else:
-            print("\nListening...")
-            audio_file = listening(audio_recorder=audio_recorder)
-            print("Audio file saved to: ", audio_file)
+        print("\nListening...")
+        audio_file = listening(audio_recorder=audio_recorder)
+        print("Audio file saved to: ", audio_file)
 
         # 2. TRANSCRIBING AUDIO
-        if args.notransc:
-            transcript = load_text_from_file(test_transcript)
-        else:
-            print("\nTranscribing...")
-            transcript = transcribing(
-                audio_file=audio_file,
-                whisper_api_key=openai_api_key,
-                output_file_path=transcript_file,
-            )
-            print(f"\nTranscript:\n-----------\n{transcript}\n\nSaved to: {transcript_file}")
+        print("\nTranscribing...")
+        transcript = transcribing(
+            audio_file=audio_file,
+            whisper_api_key=openai_api_key,
+            output_file_path=transcript_file,
+        )
+        print(
+            f"\nTranscript:\n-----------\n{transcript}\n\nSaved to: {transcript_file}"
+        )
 
         # 3. ANALYZING TRANSCRIPT
-        if args.noanaly:
-            analysis = load_text_from_file(test_analysis)
-        else:
-            print("\nAnalyzing...")
-            analysis = analyzing(
-                input_text=transcript,
-                what_to_do=prompt,
-                gpt_api_key=openai_api_key,
-                output_file_path=analysis_file,
-            )
-            print(f"\Analysis:\n-----------\n{analysis}\n\nSaved to: {analysis_file}")
+        print("\nAnalyzing...")
+        analysis = analyzing(
+            input_text=transcript,
+            what_to_do=prompt,
+            gpt_api_key=openai_api_key,
+            output_file_path=analysis_file,
+        )
+        print(f"\Analysis:\n-----------\n{analysis}\n\nSaved to: {analysis_file}")
 
         # 4. TEXT TO SPEECH
-        speaking(analysis, output_file_dir=voice_file)
+        speaking(analysis, output_file_path=voice_file, lang="en")
 
         # 5. OPENING ANALYSIS IN TEXT EDITOR
         open_txt_file(analysis_file)
@@ -154,7 +103,8 @@ def main():
         # -----------------
 
     except Exception as e:
-        exception_name = log_exception(e, log_level="critical", verbose=True)
+        traceback.print_exc()
+        print(f"Shutting down...")
 
 
 if __name__ == "__main__":
