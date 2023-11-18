@@ -4,3 +4,4 @@ python-dotenv==1.0.0
 Requests==2.31.0
 sounddevice==0.4.6
 wavio==0.0.7
+git+https://github.com/emilrueh/helpinghands.git@dev#egg=helpinghands
