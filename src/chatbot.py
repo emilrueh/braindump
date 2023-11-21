@@ -41,5 +41,8 @@ have_conversation(
     assistant_instructions=task,
     run_instructions=None,  # what could I use those run instructions for?
     output_processing="voice",
-    output_directory=r"C:\Users\emilr\Code\libraries\helpinghands\helpinghands\ai\freestyle",
+    output_directory=r"C:\Users\emilr\Code\projects\personal\braindump\src",
+    tts_provider="openai",
+    bpm=100,
+    music_style="generated",
 )
