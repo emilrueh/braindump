@@ -42,7 +42,4 @@ have_conversation(
     run_instructions=None,  # what could I use those run instructions for?
     output_processing="voice",
     output_directory=r"C:\Users\emilr\Code\projects\personal\braindump\src",
-    tts_provider="openai",
-    bpm=100,
-    music_style="generated",
 )
